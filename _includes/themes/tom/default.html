@@ -21,11 +21,17 @@
   <div class="site">
     <div class="title">
       <a href="{{ HOME_PATH }}">{{ site.title }}</a>
-
+      <div class="extra">
+            {% assign pages_list = site.pages %}
+            {% assign group = 'navigation' %}
+            {% include JB/pages_list %}
+      </div>
+<!-- use twitter theme dynamic menu
       <a class="extra" href="{{ BASE_PATH }}{{ site.JB.archive_path }}">Archive</a>
       <a class="extra" href="{{ BASE_PATH }}{{ site.JB.pages_path }}">Pages</a>
       <a class="extra" href="{{ BASE_PATH }}{{ site.JB.categories_path }}">Categories</a>
       <a class="extra" href="{{ BASE_PATH }}{{ site.JB.tags_path }}">Tags</a>
+-->
     </div>
   
     {{ content }}

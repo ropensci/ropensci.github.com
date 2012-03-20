@@ -1,6 +1,7 @@
 ---
 layout: page
-title: "Advisors"
+title: Advisors
+group: navigation 
 ---
 {% include JB/setup %}
 
