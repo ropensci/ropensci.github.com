@@ -1,0 +1,53 @@
+      <footer class="footer">
+      <hr class="soften">
+      <div class="row">
+        <div class="span10">
+          <div class="span2 offset1">
+           <form class="search" method="get" action="http://google.com/search">
+             <input type="hidden" name="q" value="site:ropensci.org">
+             <input type="text" class="input-medium search-query">
+             <button type="submit" class="btn">Search</button>
+           </form>
+          </div>
+          <div class="span2">
+            <h4>Network</h4>
+            <ul class="unstyled">
+              <li><a href="https://github.com/ropensci/rOpenSci/wiki/rOpenSci-Workflow-Document">Developer Guidelines</a></li>
+              <li><a href="#">Get Involved</a></li>
+            </ul>
+          </div>
+          <div class="span2">
+            <h4>Updates</h4>
+            <ul class="unstyled">
+              <li><a href="https://github.com/ropensci/rOpenSci/wiki/rOpenSci-Workflow-Document">Developer Guidelines</a></li>
+              <li><a href="#">Get Involved</a></li>
+            </ul>
+          </div>
+          <div class="span2">
+            <h4>Contact</h4>
+           <ul class="unstyled">
+             <li><a href="https://github.com/ropensci/rOpenSci/wiki/rOpenSci-Workflow-Document">Developer Guidelines</a></li>
+             <li><a href="#">Get Involved</a></li>
+           </ul>
+          </div>
+        </div>
+        <div class="span10">
+          <hr>
+            <div class="span4">
+              <a href="{{ site.url }}/atom.xml"><img src="/assets/img/icon-rss.png" alt="feed"></a>
+              <a href="https://twitter.com/ropensci"><img src="{{site.url}}/assets/img/twitter.png" alt="twitter"> </a> 
+              <a href="https://github.com/ropensci"><img src="{{site.url}}/assets/img/icon-github.png" alt="github"></a> 
+              <a href="mailto:ropensci@ropensci.com"><img src="{{site.url}}/assets/img/contact.png" alt="contact"></i></a>
+            </div>
+            <div class="span2 offset6">
+              <a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/l/zero/1.0/88x31.png" alt="CC0" style="float:right"></a> 
+            </div>
+          </div> <!--end span10 -->
+        </div> <!-- end row -->
+      </footer>
+    </div><!-- /container -->
+    
+    {% include javascript.html %}
+    {% include analytics.html %}
+  </body>
+</html>
