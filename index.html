@@ -6,7 +6,7 @@ title: Home
 {% include header.html %}
 
   <div class="row">
-      <div class="span10">
+      <div class="span11">
         <h2>rOpenSci Posts ({{ site.posts | size }} entries) <a href="{{ site.url }}/atom.xml"><img src="/assets/img/icon-rss.png" alt="feed"></a></h2>
 
         <div class="span2">
@@ -14,11 +14,22 @@ title: Home
         </div>
 
         <div class="span8">
-          {% for post in site.posts limit:1  %}
+
+
+          <ul class="posts">
+            {% for post in site.posts %}
+              <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a>
+              <span>{{ post.subtitle }}</span></li>
+            {% endfor %}
+          </ul>
+
+
+
+          {% for post in site.posts %}
             <h3><a href="{{ site.url }}{{ post.url }}">{{ post.title }}</a></h3>
             <p><span>{{ post.subtitle }}</span></p>
             <span> &raquo; {{ post.date | date_to_string }}</span>
-              {{ post  }}
+              {{ post | markdownify }}
             <br>
             <br>
             {% endfor %}
