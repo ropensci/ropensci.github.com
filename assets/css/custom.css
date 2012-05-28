@@ -3,9 +3,16 @@
 /* bios 
 -------------------------------------------------- */
 .au-bio {
-}
-.au-bio img {
-  float: right;
+  margin-bottom: 50px
 }
 
+.au-bio img {
+  float: left;
+  margin: 15px;
+}
+
+.avatar img {
+  float: left;
+  margin: 10px;
+}
 
