@@ -71,7 +71,7 @@
 <!-- Masthead
 ================================================== -->
   <div class="inner">
-    <h1 class="entry-title">Advisors</h1>
+    <h1 class="entry-title">Basic Installation Instructions</h1>
     <p></p>
   </div>
 </header>
@@ -84,35 +84,110 @@
           rOpenSci is a collaborative effort to develop R-based tools for facilitating Open Science. Learn more and follow us on twitter and Google+ for updates.
         </div>
         <div class="span6">
-        <div class="au-bio"> <a href="https://sites.google.com/site/ludaesch/" title="Bertram LudŠscher"><br />
-    <IMG SRC="http://ropensci.org/images/bertram84x84.png" style="float:left"><h3>Bertram Ludascher</h3>
-  </a>Bertram is a professor of Computer Science at the Department of Computer Science and the Genome Center at the University of California, Davis. Bertram is a co-PI on the <a href="https://www.dataone.org/">DataONE project</a>.
+        <h3 id="toc_1">API Keys</h3>
+
+<h4 id="toc_2">Q: Do all rOpenSci packages require an API key to use?</h4>
+
+<p>A: No, not all packages require an API key. The packages listed below
+under the next question do require a key.</p>
+
+<h4 id="toc_3">Q: Where do I obtain API Keys?</h4>
+
+<p>A: You will need to sign on at individual sources to obtain keys.</p>
+
+<ul>
+<li>  <a href="http://dev.mendeley.com/applications/register/">Mendeley</a></li>
+<li>  <a href="http://api.plos.org/registration/">PLoS</a></li>
+<li>  <a href="http://dev.springer.com/page">Springer</a></li>
+<li>  <a href="http://eol.org/users/register">Encyclopedia of Life</a></li>
+<li>  <a href="http://www.ubio.org/index.php?pagename=form">uBio</a></li>
+<li>  <a href="http://www.biodiversitylibrary.org/getapikey.aspx">Biodiversity Heritage
+Library</a></li>
+</ul>
+
+<h3 id="toc_4">Automatically loading keys on R startup</h3>
+
+<h4 id="toc_5">Q: How do I make keys load automatically when I launch R?</h4>
+
+<p>A: The best way to do this is to add the keys to your .rprofile</p>
+
+<p><strong>Step 1</strong>: Get your API key at a link above for the package of
+interest.</p>
+
+<p><strong>Step 2</strong>: Create a text file called .rprofile in your home directory
+(<a href="http://cran.r-project.org/bin/macosx/RMacOSX-FAQ.html#The-R-Console">mac</a>)
+(<a href="http://cran.r-project.org/bin/windows/rw-FAQ.html#What-are-HOME-and-working-directories_003f">pc</a>)</p>
+
+<p>In this file, add all of your API keys so it can be automatically read
+by R during startup.</p>
+<div class="highlight"><pre><code class="r">options<span class="p">(</span>PlosApiKey<span class="o">=</span> <span class="s">&quot;YOUR_KEY&quot;</span><span class="p">)</span> <span class="c1"># PLoS  </span>
+options<span class="p">(</span>BioHerLibKey<span class="o">=</span><span class="s">&quot;YOUR_KEY&quot;</span><span class="p">)</span> <span class="c1"># Biodiversity Heritage Library</span>
+options<span class="p">(</span>MendeleyKey<span class="o">=</span><span class="s">&quot;YOUR_KEY&quot;</span><span class="p">)</span>  <span class="c1"># Mendeley</span>
+</code></pre>
 </div>
 
+<p><strong>Step 3</strong>: When you open R, type in</p>
 
-<div class="au-bio"> <a href="http://www.stat.ucdavis.edu/~duncan/" title="Duncan Temple-Lang"><br />
-<IMG SRC="http://ropensci.org/images/duncan84x84.png" style="float:left"><h3>Duncan Temple-Lang</h3>
-</a>Duncan is an Associate Professor at the Department of Statistics at the University of California, Davis. He is one of the developers of R.
+<p><code>r Options() \# To verify individual keys, use the
+getOption() function like so: getOption(&#39;MendeleyKey&#39;)
+getOption(&#39;PlosApiKey&#39;) getOption(&#39;BioHerLibKey&#39;)</code></p>
+
+<p>and you should see all of your API keys alongside other options.</p>
+
+<h3 id="toc_6">Installing packages</h3>
+
+<h4 id="toc_7"><strong>Q: How do I install a package that&#39;s already on CRAN?</strong></h4>
+
+<p>A: Easy-peasy. Just go to CRAN to download and install from
+Terminal/Shell, or download from within R.</p>
+
+<h4 id="toc_8"><strong>Q: How do I install a package that&#39;s just in development on GitHub?</strong></h4>
+
+<p>A: There are two options. The first option is:</p>
+
+<p><strong>Step 1</strong>: Sign up for a free account at GitHub (if you don&#39;t have one
+already) <a href="https://github.com/signup/free">here</a></p>
+
+<p><strong>Step 2</strong>: Clone the repository/package you want to your local machine
+(see <a href="http://help.github.com/git-cheat-sheets/">here</a> for help on this)</p>
+
+<p><strong>Step 3</strong>: Load the functions in R using this generic format (change
+the path for the specific package)</p>
+<div class="highlight"><pre><code class="r">setwd<span class="p">(</span><span class="s">&#39;path/to/package/R&#39;</span><span class="p">)</span> <span class="c1"># the functions should be in the /R folder typically </span>
+funcs <span class="o">&lt;-</span> as.list<span class="p">(</span>dir<span class="p">())</span> <span class="c1"># create list of function file names </span>
+require<span class="p">(</span>plyr<span class="p">)</span> \<span class="c1"># load plyr to use the functionl_ply </span>
+l_ply<span class="p">(</span>funcs<span class="p">,</span> source<span class="p">)</span> <span class="c1"># loads each function in a loop </span>
+</code></pre>
 </div>
 
-<div class="au-bio"> <a href="http://had.co.nz/" title="Hadley Wickham"><br />
-<IMG SRC="http://ropensci.org/images/hadley84x84.png" style="float:left"><h3>Hadley Wickham</h3>
-</a>Hadley is an assistant Professor of Statistics at Rice University. Hadley is also the author of popular R visualization tools such as ggplot2, plyr and reshape.
+<p>And here&#39;s the second option, which may not work for all of our
+packages, but it&#39;s worth a try as it&#39;s so easy!</p>
+
+<p><strong>Step 1</strong>: Install and load the devtools package by Hadley Wickham:</p>
+<div class="highlight"><pre><code class="r">install.packages<span class="p">(</span><span class="s">&quot;devtools&quot;</span><span class="p">)</span> 
+require<span class="p">(</span>devtools<span class="p">)</span> 
+</code></pre>
 </div>
 
-<div class="au-bio"> <a href="http://rstudio.org" title="JJ Allaire"><br />
-<IMG SRC="http://ropensci.org/images/jjallaire84x84.png" style="float:left"><h3>JJ Allaire</h3>
- </a>JJ is an Internet technology entrepreneur and the creator of the web development tool ColdFusion.  JJ now created and works on <a href="http://rstudio.org">Rstudio</a>, a web-based integrated development environment for R.
+<p><strong>Step 2</strong>: Use the install_github function from devtools to attempt to
+install one of our packages directly from GitHub</p>
+<div class="highlight"><pre><code class="r">install_github<span class="p">(</span>repo <span class="o">=</span> <span class="s">&quot;nameofoneofourpackages&quot;</span><span class="p">,</span> username <span class="o">=</span> <span class="s">&quot;username&quot;</span><span class="p">,</span> branch <span class="o">=</span> <span class="s">&quot;master&quot;</span><span class="p">)</span> 
+<span class="c1"># e.g., </span>
+install_github<span class="p">(</span>repo <span class="o">=</span><span class="s">&quot;RMendeley&quot;</span><span class="p">,</span> username <span class="o">=</span> <span class="s">&quot;ropensci&quot;</span><span class="p">)</span> 
+</code></pre>
 </div>
 
-<div class="au-bio"> <a href="http://www.nceas.ucsb.edu/~jones/" title="Matt Jones"><br />
-<IMG SRC="http://ropensci.org/images/matt84x84.png" style="float:left"><h3>Matt Jones</h3>
-</a>Matt is the director of Informatics Research and Development at <a href="http://www.nceas.ucsb.edu/">National Center for Ecological Analysis and Synthesis</a>. Matt is a co-PI on the <a href="https://www.dataone.org/">DataONE project</a>.
+<p><strong>Step 3</strong>: Load the package</p>
+<div class="highlight"><pre><code class="r">require<span class="p">(</span>nameofoneofourpackages<span class="p">)</span> 
+</code></pre>
 </div>
 
+<h4 id="toc_9">Q: What if I don&#39;t want to get a GitHub account?</h4>
 
-
-
+<p>A: Just go to the site for the package of interest, and you can download
+or copy/paste functions of interest. Also, you don&#39;t need a GitHub
+account to use the second option above, installing with install_github,
+to install and try our packages.</p>
 
         </div>
       </div>

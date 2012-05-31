@@ -71,7 +71,7 @@
 <!-- Masthead
 ================================================== -->
   <div class="inner">
-    <h1 class="entry-title">Advisors</h1>
+    <h1 class="entry-title">Project Overview</h1>
     <p></p>
   </div>
 </header>
@@ -84,35 +84,119 @@
           rOpenSci is a collaborative effort to develop R-based tools for facilitating Open Science. Learn more and follow us on twitter and Google+ for updates.
         </div>
         <div class="span6">
-        <div class="au-bio"> <a href="https://sites.google.com/site/ludaesch/" title="Bertram LudŠscher"><br />
-    <IMG SRC="http://ropensci.org/images/bertram84x84.png" style="float:left"><h3>Bertram Ludascher</h3>
-  </a>Bertram is a professor of Computer Science at the Department of Computer Science and the Genome Center at the University of California, Davis. Bertram is a co-PI on the <a href="https://www.dataone.org/">DataONE project</a>.
-</div>
+        <h3 id="toc_10"><strong>rOpenSci</strong> is a <a href="http://ropensci.org/wp-admin/project-overview/" title="Profile">collaborative effort</a> to develop R-based tools for facilitating Open Science.</h3>
 
+<h2 id="toc_11"><em>So what is Open Science?</em></h2>
 
-<div class="au-bio"> <a href="http://www.stat.ucdavis.edu/~duncan/" title="Duncan Temple-Lang"><br />
-<IMG SRC="http://ropensci.org/images/duncan84x84.png" style="float:left"><h3>Duncan Temple-Lang</h3>
-</a>Duncan is an Associate Professor at the Department of Statistics at the University of California, Davis. He is one of the developers of R.
-</div>
+<p>Open science is the practice of making various elements of scientific
+research -- data &amp; methods, code &amp; software, and results &amp; publications
+-- readily accessible to anyone. While this has great potential for
+advancing research (in addition to education, public policy, &amp;
+commercial innovation) as a whole, there are both technical and social
+challenges preventing this practice from being more widespread. Social
+challenges stem largely from the dichotomy between what is best for an
+individual researcher and what is best for the community. Technical
+challenges arise largely from issues of scale: putting free print copies
+of DNA sequencing data in a box in front of your office doesn&#39;t scale as
+well as depositing those sequences on repositories like
+<a href="http://www.ncbi.nlm.nih.gov/genbank/">GeneBANK</a>.</p>
 
-<div class="au-bio"> <a href="http://had.co.nz/" title="Hadley Wickham"><br />
-<IMG SRC="http://ropensci.org/images/hadley84x84.png" style="float:left"><h3>Hadley Wickham</h3>
-</a>Hadley is an assistant Professor of Statistics at Rice University. Hadley is also the author of popular R visualization tools such as ggplot2, plyr and reshape.
-</div>
+<h2 id="toc_12"><em>Why does open science need tools?</em></h2>
 
-<div class="au-bio"> <a href="http://rstudio.org" title="JJ Allaire"><br />
-<IMG SRC="http://ropensci.org/images/jjallaire84x84.png" style="float:left"><h3>JJ Allaire</h3>
- </a>JJ is an Internet technology entrepreneur and the creator of the web development tool ColdFusion.  JJ now created and works on <a href="http://rstudio.org">Rstudio</a>, a web-based integrated development environment for R.
-</div>
+<p>Our goal is to provide open-source tools to help address both these
+challenges. These are interesting times. The technology to facilitate
+the access and utilization of this data has never been better, yet it is
+only beginning to be employed. The internet -- firmly in its second
+generation, the read-write Web 2.0 culture in which users generate
+content as readily as they consume it -- has led to the explosion of
+mechanisms for sharing. Yet these tools are not widely leveraged in
+scientific communities (Coombes <em>et. al.</em> 2007).</p>
 
-<div class="au-bio"> <a href="http://www.nceas.ucsb.edu/~jones/" title="Matt Jones"><br />
-<IMG SRC="http://ropensci.org/images/matt84x84.png" style="float:left"><h3>Matt Jones</h3>
-</a>Matt is the director of Informatics Research and Development at <a href="http://www.nceas.ucsb.edu/">National Center for Ecological Analysis and Synthesis</a>. Matt is a co-PI on the <a href="https://www.dataone.org/">DataONE project</a>.
-</div>
+<h2 id="toc_13"><em>Why R for open science?</em></h2>
 
+<p><a href="http://www.r-project.org/">R</a> is an open-source statistical environment
+that can be used for not only statistics, but also for data acquisition,
+data manipulation, modeling, among other uses. R is increasingly being
+used by scientists across all disciplines and has
+<a href="http://www.tiobe.com/index.php/content/paperinfo/tpci/index.html">overtaken</a>
+popular scientific programming tools. Part of the reason behind R&#39;s
+<a href="http://blog.revolutionanalytics.com/2010/01/r-package-growth.html">explosive
+growth</a>
+is the ease with which the ever-growing userbase can add new
+functionality, a fact evidenced by
+<a href="http://cran.r-project.org/web/packages/">3,000+</a> currently available R
+packages. The R framework is ideal for open science because:</p>
 
+<ol>
+<li> The software is free.</li>
+<li> There is an extensive user community from which help is very quickly
+given, and</li>
+<li> The scientific workflow can be documented for fully <a href="http://cran.r-project.org/web/views/ReproducibleResearch.html">reproducible
+research</a>.</li>
+</ol>
 
+<h3 id="toc_14">Open Access Literature</h3>
 
+<p>Published literature is still the most common repository of scientific
+information. While literature continues to expand exponentially, the
+amount any individual researcher can consume<a href="http://www.slideshare.net/CameronNeylon/science-in-the-open/90">appears to be
+constant</a>.
+Whether discovering what to read, identifying research trends, or
+summarizing existing work, scalable solutions require computational
+approaches. <a href="http://www.mendeley.com/">Mendeley</a>, a citation tool,
+literature repository, and social network which has just cataloged its
+<a href="http://www.mendeley.com/blog/progress-update/mendeley-1-0-is-here/">100 millionth
+paper</a>,
+has released a <a href="http://apidocs.mendeley.com/">public API</a> through which
+it challenges the scientific community to leverage this data to
+facilitate novel applications. <a href="http://www.plos.org/">PLoS</a>, The Public
+Library of Science, has also joined the start-up with there own <a href="http://api.plos.org/">public
+API</a> allowing access to the metadata and full text
+of all its publication through an accessible <a href="http://en.wikipedia.org/wiki/Representational_State_Transfer">RESTful
+interface</a>.</p>
+
+<h3 id="toc_15">Open Data</h3>
+
+<p>Access to scientific data is rapidly emerging as a central theme in the
+future of research. In our
+field of Ecology and Evolution, new requirements for <a href="http://www.nsf.gov/news/news_summ.jsp?cntn_id=116928">data management
+plans from NSF</a>,
+data deposition requirements of <a href="http://datadryad.org/partners">prominent
+journals</a>, and the emergence of
+well-developed repositories like
+<a href="http://www.ncbi.nlm.nih.gov/genbank/">GeneBANK</a>,
+<a href="http://datadryad.org/">Dryad</a>,
+<a href="http://www.treebase.org/treebase-web/home.html">TreeBASE</a>,
+<a href="https://www.dataone.org/">DataONE</a>,
+(<a href="http://knb.ecoinformatics.org/index.jsp">KNB</a>,
+<a href="http://www.nbii.gov/portal/server.pt/community/nbii_home/236">NBII</a>,
+<a href="http://www.gbif.org/">GBIF</a>) have opened a wealth of potential
+(Reichman <em>et. al.</em> 2011).</p>
+
+<h3 id="toc_16">Building Bridges between Open Access Literature and Open Data</h3>
+
+<p>Despite these dramatic shifts, the bulk of scientific research has been
+slow to benefit from the transformation than they are to comply with the
+new requirements. To address these challenges, we have set about
+building bridges between the repositories and the open source R
+statistical environment. We are creating packages that allow access to
+these data repositories through a statistical programming environment
+that is already a familiar part of the workflow of many scientists. We
+hope that these bridges will not only facilitate drawing data into an
+environment where it can readily be manipulated, but also one in which
+those analyses and methods can be easily shared, replicated, and
+extended by other researchers. Keep up with updates on the rOpenSci
+project here and on <a href="http://twitter.com/#!/ropensci" title="Tweets">twitter</a>.</p>
+
+<h3 id="toc_17">References</h3>
+
+<p>Coombes K, Wang J and Baggerly K (2007). &quot;Microarrays: retracing
+steps.&quot; <em>Nature Medicine</em>, <em>13</em>. ISSN 1078-8956, 
+<a href="http://dx.doi.org/10.1038/nm1107-1276b">http://dx.doi.org/10.1038/nm1107-1276b</a>.</p>
+
+<p>Reichman O, Jones M and Schildhauer M (2011 2011). &quot;Challenges and
+Opportunities of Open Data in Ecology.&quot; <em>Science</em>, <em>331</em>. ISSN
+0036-8075, <a href="http://dx.doi.org/10.1126/science.1197962">http://dx.doi.org/10.1126/science.1197962</a></p>
 
         </div>
       </div>
