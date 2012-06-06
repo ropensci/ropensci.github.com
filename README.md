@@ -49,6 +49,28 @@ git push origin source
 The easiest way to update the ropensci.github.com copy is perhaps to clone a second copy of the site and keep it switched to the master branch.  Then just copy the contents of `_site/` directory, after running jekyll, into the master branch to update it.  
 
 
+
+Creating pages and posts
+------------------------
+
+New posts must be created in the `_posts` directory, and must begin with date in yyyy-mm-dd format, followed by the post title (or short version of the title).  Posts are written in markdown, and just need a minimal YAML header to control metadata, such as:
+
+```
+---
+layout: post
+title: my clever title
+subtitle: is optional
+tags: [optional, in brackets, for multiple]
+categories: [optional, in brackets, for multiple]
+---
+```
+
+
+See the [Jekyll project wiki](https://github.com/mojombo/jekyll/wiki) for details.  
+
+Pages are created in the same way but in the root directory, but don't need the date and don't get tags and categories.   Set `layout: default` for pages.  Layouts are defined in the `_layout` directory, which assembles the layout from html blocks that are kept in `_includes` directory (i.e. so you can reuse the same header or footer across multiple layouts).  
+
+
 Jekyll Extensions 
 -----------------
 
