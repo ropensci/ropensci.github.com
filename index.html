@@ -1,271 +1,184 @@
+<!DOCTYPE html>
 
-
-  <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
+<html>
+  <head>    <meta charset="utf-8">
+    <title>The rOpenSci Project: Putting data in your command (line)</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-
-    <!-- Le styles -->
     <link href="/assets/css/bootstrap.css" rel="stylesheet">
     <link href="/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <link href="/assets/css/solarized.css" rel="stylesheet">
     <link href="/assets/css/custom.css" rel="stylesheet">
-    <style>
-      body {
-        padding-top: 40px; /* 60px to make the container go all the way to the bottom of the topbar */
+
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/grid.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+
+    <script type="text/javascript" src="assets/js/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript" src="assets/js/strftime.js"></script>
+    <script type="text/javascript">
+    (function ($, undefined) {
+      // Put custom repo URL's in this object, keyed by repo name.
+      var repoUrls = {
+      };
+      // Put custom repo descriptions in this object, keyed by repo name.
+      var repoDescriptions = {
+      };
+
+      function repoUrl(repo) {
+        return repoUrls[repo.name] || repo.html_url;
       }
-    </style>
-  
+      function repoDescription(repo) {
+        return repoDescriptions[repo.name] || repo.description;
+      }
+
+      function addRecentlyUpdatedRepo(repo) {
+        var $item = $("<li>");
+
+        var $name = $("<a>").attr("href", repo.html_url).text(repo.name);
+        $item.append($("<span>").addClass("name").append($name));
+
+        var $time = $("<a>").attr("href", repo.html_url + "/commits").text(strftime("%h %e, %Y", repo.pushed_at));
+        $item.append($("<span>").addClass("time").append($time));
+
+        $item.append('<span class="bullet">&sdot;</span>');
+
+        var $watchers = $("<a>").attr("href", repo.html_url + "/watchers").text(repo.watchers + " watchers");
+        $item.append($("<span>").addClass("watchers").append($watchers));
+
+        $item.append('<span class="bullet">&sdot;</span>');
+
+        var $forks = $("<a>").attr("href", repo.html_url + "/network").text(repo.forks + " forks");
+        $item.append($("<span>").addClass("forks").append($forks));
+
+        $item.appendTo("#recently-updated-repos");
+      }
+
+      function addRepo(repo) {
+        var $item = $("<li>").addClass("repo grid-1 " + (repo.language || '').toLowerCase());
+        var $link = $("<a>").attr("href", repoUrl(repo)).appendTo($item);
+        $link.append($("<h2>").text(repo.name));
+        $link.append($("<h3>").text(repo.watchers + " watchers" + " / " + repo.forks + " forks"));
+        $link.append($("<p>").text(repoDescription(repo)));
+        $link.append($("<p>").text("Updated " + 
+          strftime("%h %e, %Y", repo.pushed_at)));
+        $link.append($("<h3>").addClass("language").text(repo.language));
+        
+        $item.appendTo("#repos");
+      }
+
+      $.getJSON("https://api.github.com/users/ropensci/repos?per_page=100&callback=?", function (result) {
+        var repos = result.data;
+
+        $(function () {
+          $("#num-repos").text(repos.length);
+
+          // Convert pushed_at to Date.
+          $.each(repos, function (i, repo) {
+            repo.pushed_at = new Date(repo.pushed_at);
+
+            var weekHalfLife  = 1.146 * Math.pow(10, -9);
+
+            var pushDelta    = (new Date) - Date.parse(repo.pushed_at);
+            var createdDelta = (new Date) - Date.parse(repo.created_at);
+
+            var weightForPush = 1;
+            var weightForWatchers = 1.314 * Math.pow(10, 7);
+
+            repo.hotness = weightForPush * Math.pow(Math.E, -1 * weekHalfLife * pushDelta);
+            repo.hotness += weightForWatchers * repo.watchers / createdDelta;
+          });
+
+          // Sort by highest # of watchers.
+          repos.sort(function (a, b) {
+            if (a.hotness < b.hotness) return 1;
+            if (b.hotness < a.hotness) return -1;
+            return 0;
+          });
+
+          $.each(repos, function (i, repo) {
+            addRepo(repo);
+          });
+
+          // Sort by most-recently pushed to.
+          repos.sort(function (a, b) {
+            if (a.pushed_at < b.pushed_at) return 1;
+            if (b.pushed_at < a.pushed_at) return -1;
+            return 0;
+          });
+
+          $.each(repos.slice(0, 3), function (i, repo) {
+            addRecentlyUpdatedRepo(repo);
+          });
+        });
+      });
+
+    })(jQuery);
+    </script>
   </head>
 
+
+
   <body>
+    <div id="wrapper" class="grid clearfix">
+      <div id="main" class="grid-1">
+        <div><h1>rOpenSci Project</h1></div>
+        <p> a collaborative effort to develop R-based tools for facilitating Open Science.  <a href="http://ropensci.org/2011/07/31/welcome-to-ropensci/">Read more</a></p>
+        <p><a href="https://twitter.com/ropensci" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @rOpenSci</a></p>
+          <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
+          <script>
+          new TWTR.Widget({
+            version: 2,
+            type: 'profile',
+            rpp: 2,
+            interval: 30000,
+            width: 220,
+            height: 180,
+            theme: {
+              shell: {
+                background: '#ffffff',
+                color: '#000000'
+              },
+              tweets: {
+                background: '#ffffff',
+                color: '#000000',
+                links: '#005fa8'
+              }
+            },
+            features: {
+              scrollbar: false,
+              loop: false,
+              live: false,
+              behavior: 'all'
+            }
+          }).render().setUser('ropensci').start();
+          </script>
+      </div>
 
-    <!-- Navbar
-  ================================================== -->
-<div class="navbar navbar-fixed-top">
-  <div class="navbar-inner">
-    <div class="container">
-      <div class="row">
-        <div class="span10 offset1">
-          <div class="span2">
-            <a href="/index.html"><img src="/assets/img/logo.png"></a>
-          </div>
-          <div class="span2">
-            <h3> About </h3>
-            <ul class="unstyled">
-              <li><a href="/project-overview.html">Project Overview</a></li>
-              <li><a href="/advisors.html">Advisors</a></li>
-              <li><a href="/developers.html">Developers</a></li>
-            </ul>
-          </div>
-           <div class="span2">
-            <h3> Users </h3>
-            <ul class="unstyled">
-              <li><a href="/installation.html">Installation</a></li>
-              <li><a href="/tutorials.html">Tutorials</a></li>
-              <li><a href="/packages.html">Packages</a></li>
-            </ul>
-          </div>
-          <div class="span2">
-            <h3> Developers </h3>
-            <ul class="unstyled">
-              <li><a href="https://github.com/ropensci/rOpenSci/wiki/rOpenSci-Workflow-Document">Developer Guidelines</a></li>
-              <li><a href="/get-involved.html">Get Involved</a></li>
-            </ul>
-          </div>
-        </div> <!-- /span10 -->
-      </div> <!-- /row -->
-    </div> <!-- /container -->
-  </div> <!-- /navbar-inner -->
-</div> <!-- /fixed navbar -->
-
-
-
-    <div class="container">
-
-<!-- Masthead
-================================================== -->
-  <div class="inner">
-    <h1 class="entry-title">Home</h1>
-    <p></p>
-  </div>
-</header>
-<hr class="soften">
-
-
-
-  <div class="row">
-      <div class="span11">
-        <h2>rOpenSci Posts (1 entries) <a href="/atom.xml"><img src="/assets/img/icon-rss.png" alt="feed"></a></h2>
-
-        <div class="span2">
-          rOpenSci is a collaborative effort to develop R-based tools for facilitating Open Science. Learn more and follow us on twitter and Google+ for updates.
+      <div class="grid grid-3">
+        <div id="statistics" class="grid-1 alpha header">
+          <h1>Statistics</h1>
+          <p>
+            <a href="https://github.com/ropensci/repositories"><span id="num-repos">&nbsp;</span> public repos</a>
+            <br>
+          </p>
+          <p class="email"><a href="mailto:ropensci@ropensci.com">ropensci@ropensci.com</a></p>
         </div>
 
-        <div class="span8">
-
-
-          <ul class="posts">
-            
-              <li><span>07 Oct 2011</span> &raquo; <a href="/2011/10/07/scientist-variability-and-consequences-of-data-sharing.html">Scientist Variability &amp; Consequences for Data Sharing (Guest Post)</a>
-              <span></span></li>
-              <br />
-              <p>Scientist variability is high. I know it&#39;s risky to use statistical terms in non-statistical contexts on this blog, but it&#39;s a critical component of attitudes towards data sharing. This variability is manifested in many ways: what they study (ecologists, herpetologists, geneticists, microbiologists), how they study it (modelers, experimentalists, observationalists), their level of expertise (graduate students; postdocs; and BS, MS, and PhD-level researchers), and their professional affiliations (academic, government, non-governmental organization, museum).</p>
-
-<p>Given this variability, it&#39;s not surprising that there exists diverse points of view about topics surrounding data. This is especially true for attitudes about data sharing. There are plenty of articles that tout the benefits of data sharing ((PARR and CUMMINGS, 2005, (Piwowar <em>et. al.</em> 2007), <a href="http://chronicle.com/article/Too-Many-Researchers-Are/123749/?sid=at&amp;utm_source=at&amp;utm_medium=en" target="_blank">LeClere 2010</a>), but it is unclear whether these articles are being read by the &quot;scientist general public&quot; (i.e. NOT librarians, information scientists or data managers). In addition, attitudes about data sharing are strongly influenced by scientific field, the types of data collected, how hard it was to collect those data, and past experiences with sharing and collaboration (Tenopir <em>et. al.</em> 2011),</p>
-
-<p>I am currently ruminating on the disparate attitudes towards data sharing and its causes, primarily because of the interactions I&#39;ve recently had with scientists for my current project. I am collecting information that will inform an Excel add-in designed to promote data sharing and archiving in science (learn more about the <a href="http://dcxl.cdlib.org">Digital Curation for Excel project (DCXL)</a>). To collect this information, I&#39;ve attended a few conferences and interviewed a lot of scientists. Part of this interview scheme is to ask them about their attitudes towards data sharing. Here I report on two groups of scientists with quite different perspectives.</p>
-
-<p>In August, I attended the <a href="http://www.esa.org/austin/" target="_blank">Ecological Society of America Meeting</a> in Austin. Around 2,000 ecologists took over the city, and I managed to corner a few and badger them with questions. Here are my general observations about ecologists and data sharing:</p>
-
-<ol>
-<li>They know that they should share their data,</li>
-<li>They think that it is very important to share data publicly, and</li>
-<li>They did not list a litany of caveats to the two statements above.</li>
-</ol>
-
-<p>Sadly, although sharing data is important, it is not currently a priority for most ecologists. This is because of the time and effort involved in preparing data for others to use, as well as lack of knowledge about data centers and repositories they could utilize.</p>
-
-<p>A few weeks later, I was in Seattle for the <a href="http://www.afs2011.org" target="_blank">American Fisheries Society Meeting</a>. About 4,500 fisheries scientists were in attendance, and I spoke with a good cross-section of them about data sharing. Here&#39;s my general observations for this group:</p>
-
-<ol>
-<li>They don&#39;t think they should have to share their data,</li>
-<li>They think it is generally important for scientists to share their data, but are unwilling to share their own data, and</li>
-<li>If they were to share their data, they would want to place a number of restrictions on its use and accessibility.</li>
-</ol>
-
-<p>Of course, not all of the ecologists or fisheries scientists are described by the statements above. These are, however, the general trends.</p>
-
-<p>Although I could list some hypotheses about why these different points of view arise, I&#39;m more interested in their consequences. Are ecologists embracing meta-analysis and re-use of data more so than fisheries scientists? Are they collaborating more? Considering the current state of global fisheries (Tenopir <em>et. al.</em> 2011),(Worm <em>et. al.</em> 2009; Worm <em>et. al.</em> 2009), do the attitudes of fisheries scientists hinder our ability to model populations?</p>
-
-<p>How should these attitudes and their consequences be addressed? In the case of ecologists, it seems simple enough: enable tools that make data sharing easy, foster good data management practices, and increase education about data centers and how they can be used. For fisheries scientists, there is the more challenging task of changing attitudes. Perhaps someone should conduct a fisheries-centered meta-analysis of the field&#39;s advancement due to open data practices, or we should focus on creating the ability to set a diversity of use policies for fisheries data placed in repositories.</p>
-
-<p>Not all scientists think alike. We have different motivations, needs, and desires that influence our attitudes and decisions. This is the challenge for data centers, librarians, and funders: to find ways to address the needs for many different types of scientists and facilitate data sharing. Regardless of their differences, all fields of science benefit when data sharing is the norm and the progress of scientific discovery is accelerated through data re-use.</p>
-
-<h2 id="toc_0">References</h2>
-
-<p>Parr C and Cummings M (2005). &quot;Data sharing in ecology and
-evolution.&quot; <em>Trends in Ecology &amp; Evolution</em>, <em>20</em>. ISSN 01695347,
-<URL: http://dx.doi.org/10.1016/j.tree.2005.04.023>.</p>
-
-<p>Piwowar H, Day R, Fridsma D and Ioannidis J (2007). &quot;Sharing
-Detailed Research Data Is Associated with Increased Citation
-Rate.&quot; <em>PLoS ONE</em>, <em>2</em>. <URL:
-http://dx.doi.org/10.1371/journal.pone.0000308>.</p>
-
-<p>Tenopir C, Allard S, Douglass K, Aydinoglu A, Wu L, Read E, Manoff
-M, Frame M and Neylon C (2011). &quot;Data Sharing by Scientists:
-Practices and Perceptions.&quot; <em>PLoS ONE</em>, <em>6</em>. <URL:
-http://dx.doi.org/10.1371/journal.pone.0021101>.</p>
-
-<p>Tenopir C, Allard S, Douglass K, Aydinoglu A, Wu L, Read E, Manoff
-M, Frame M and Neylon C (2011). &quot;Data Sharing by Scientists:
-Practices and Perceptions.&quot; <em>PLoS ONE</em>, <em>6</em>. <URL:
-http://dx.doi.org/10.1371/journal.pone.0021101>.</p>
-
-<p>Worm B, Hilborn R, Baum J, Branch T, Collie J, Costello C, Fogarty
-M, Fulton E, Hutchings J, Jennings S, Jensen O, Lotze H, Mace P,
-McClanahan T, Minto C, Palumbi S, Parma A, Ricard D, Rosenberg A,
-Watson R and Zeller D (2009 2009). &quot;Rebuilding Global Fisheries.&quot;
-<em>Science</em>, <em>325</em>. ISSN 0036-8075, <URL:
-http://dx.doi.org/10.1126/science.1173146>.</p>
-
-<p><strong>About the author</strong>: Dr. Carly Strasser is a Marine Ecologist by training, but now focuses on helping scientists with data management, organization, sharing, archiving, and re-use. She is currently working on the DCXL (Digital Curation for Excel) project at California Digital Library, funded by the Gordon and Betty Moore Foundation and Microsoft Research. <a href="http://dcxl.cdlib.org">Learn more about the project</a>.</p>
-
-            
-          </ul>
-
-
-        </div>
-      </div> <!-- end span10 -->
-    </div> <!-- end row -->
-      <footer class="footer">
-      <div class="row">
-        <div class="span11">
-          <hr class="soften">
-          <div class="span2">
-           <form class="search" method="get" action="http://google.com/search">
-             <input type="hidden" name="q" value="site:ropensci.org">
-             <input type="text" class="input-medium search-query">
-             <button type="submit" class="btn">Search</button>
-           </form>
-          </div>
-          <div class="span2">
-            <h4>Network</h4>
-            <ul class="unstyled">
-              <li><a href="mailto:info@ropensci.org">info@ropensci.org</a></li>
-              <li><a href="/get-involved.html">Get Involved</a></li>
-            </ul>
-          </div>
-          <div class="span3">
-            <h4>Updates</h4>
-                           <a href="https://twitter.com/ropensci" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">@ropensci</a> 
-             <iframe class="github-btn" src="http://markdotto.github.com/github-buttons/github-btn.html?user=ropensci&type=watch&repo=ropensci&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="123px" height="20px"></iframe>
-
-
-          </div>
-          <div class="span2">
-            <h4>Contact</h4>
-           <ul class="unstyled">
-             <li> </li>
-             <li> </li>
-           </ul>
-          </div>
-        </div> <!-- end span11 -->
-      </div> <!-- end row -->
-      <div class="row">
-        <div class="span11">
-          <hr class="soften">
-
-          <div class="span2">
-            <p>
-              <a href="/atom.xml"><img src="/assets/img/icon-rss.png" alt="feed"></a>
-              <a href="https://twitter.com/ropensci"><img src="/assets/img/twitter.png" alt="twitter"> </a> 
-              <a href="https://github.com/ropensci"><img src="/assets/img/icon-github.png" alt="github"></a> 
-              <a href="mailto:ropensci@ropensci.com"><img src="/assets/img/contact.png" alt="contact"></i></a>
-            </p>
-            <br />
-          </div>
-          <div class="span2">
-            <br />
-          </div>
-          <div class="span3">
-            <br />
-          </div>
-          <div class="span2">
-           <p><a rel="license" href="http://creativecommons.org/publicdomain/zero/1.0/"><img src="http://i.creativecommons.org/l/zero/1.0/88x31.png" alt="CC0" style="float:right"></a></p>
-            <br />
-          </div>
+        <div id="recently-updated" class="grid-2 omega header">
+          <h1>Recently updated <a href="https://github.com/ropensci/repositories">View All on GitHub</a></h1>
+          <ol id="recently-updated-repos"></ol>
         </div>
       </div>
-      </footer>
-    </div><!-- /container -->
-    
-        <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <!-- Equations using MathJax -->
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config"> MathJax.Hub.Config({ TeX: { equationNumbers: {autoNumber: "all"} } });       </script>
-    <script src="/assets/js/jquery.js"></script>
-    <script src="/assets/js/bootstrap-collapse.js"></script>
+
+      <!-- Generate list of all repos here -->
+      <ol id="repos"></ol>
+    </div>
+
+
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
-    <!--
-    <script src="/assets/js/bootstrap-dropdown.js"></script>
-    <script src="/assets/js/google-code-prettify/prettify.js"></script>
-    <script src="/assets/js/bootstrap-transition.js"></script>
-    <script src="/assets/js/bootstrap-alert.js"></script>
-    <script src="/assets/js/bootstrap-modal.js"></script>
-    <script src="/assets/js/bootstrap-scrollspy.js"></script>
-    <script src="/assets/js/bootstrap-tab.js"></script>
-    <script src="/assets/js/bootstrap-tooltip.js"></script>
-    <script src="/assets/js/bootstrap-popover.js"></script>
-    <script src="/assets/js/bootstrap-button.js"></script>
-    <script src="/assets/js/bootstrap-carousel.js"></script>
-    <script src="/assets/js/bootstrap-typeahead.js"></script>
-    <script src="/assets/js/application.js"></script>
-    -->
-
-
-      <script type="text/javascript">
-          var _gaq = _gaq || [];
-          _gaq.push(['_setAccount', 'UA-30162541-1']);
-          _gaq.push(['_trackPageview']);
-          (function() {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-          })();
-  </script>
-
-
-
-
   </body>
-</html>
-
+</html> 
 
