@@ -1,6 +1,7 @@
 ---
-layout: default
+layout: page
 title: Basic Installation Instructions
+
 ---
 
 

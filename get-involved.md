@@ -1,6 +1,7 @@
 ---
 title: Get Involved
-layout: default
+layout: page
+
 ---
 
 There are many ways to get involved with the rOpenSci project.
