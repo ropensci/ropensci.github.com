@@ -62,10 +62,10 @@
         $link.append($("<h2>").text(repo.name));
         $link.append($("<h3>").text(repo.watchers + " watchers" + " / " + repo.forks + " forks"));
         $link.append($("<p>").text(repoDescription(repo)));
-        $link.append($("<p>").text("Updated " + 
+        $link.append($("<p>").text("Updated " +
           strftime("%h %e, %Y", repo.pushed_at)));
         $link.append($("<h3>").addClass("language").text(repo.language));
-        
+
         $item.appendTo("#repos");
       }
 
@@ -125,7 +125,7 @@
     <div id="wrapper" class="grid clearfix">
       <div id="main" class="grid-1">
         <div><h1>rOpenSci Project</h1></div>
-        <p> a collaborative effort to develop R-based tools for facilitating Open Science.  <a href="http://ropensci.org/2011/07/31/welcome-to-ropensci/">Read more</a></p>
+        <p> a collaborative effort to develop R-based tools for facilitating Open Science.  <a href="http://ropensci.org/about/">Read more</a></p>
         <p><a href="https://twitter.com/ropensci" class="twitter-follow-button" data-link-color="#0069D6" data-show-count="true">Follow @rOpenSci</a></p>
           <script charset="utf-8" src="http://widgets.twimg.com/j/2/widget.js"></script>
           <script>
@@ -164,7 +164,7 @@
             <a href="https://github.com/ropensci/repositories"><span id="num-repos">&nbsp;</span> public repos</a>
             <br>
           </p>
-          <p class="email"><a href="mailto:ropensci@ropensci.com">ropensci@ropensci.com</a></p>
+          <p class="email"><a href="mailto:info@ropensci.org">info@ropensci.org</a></p>
         </div>
 
         <div id="recently-updated" class="grid-2 omega header">
@@ -180,5 +180,5 @@
 
     <script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
   </body>
-</html> 
+</html>
 
