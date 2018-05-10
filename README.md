@@ -2,7 +2,7 @@
 
 ⚠
 
-This is old repo for [rOpenSci's website](http://ropensci.org/). To contribute to the site please visit our new repo [roweb2](https://github.com/ropensci/roweb2/#ropensci-website) and add your contributions there. If you wish to access the old site (locked on October 26, 2017) visit [legacy.ropensci.org](http://legacy.ropensci.org/)
+This is old repo for [rOpenSci's website](http://ropensci.org/). To contribute to the site please visit our new repo [roweb2](https://github.com/ropensci/roweb2/#ropensci-website) and add your contributions there. 
 
 
 ⚠
